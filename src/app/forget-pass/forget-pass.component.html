@@ -1,0 +1,41 @@
+ <div class="bg-class">
+     <div class="login-page ls-closed">
+         <div class="login-box">
+             <div class="logo">
+                 <a href="javascript:void(0);">ETS<img src="../assets/image/favicon-65x65.png" /></a>
+                 <small>Easy Travel Solution</small>
+             </div>
+             <div class="card">
+                 <div class="body">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="msg">
+                            Enter your email address that you used to register. We'll send you an email with your username and a
+                            link to reset your password.
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">email</i>
+                            </span>
+                            <div class="form-line" [ngClass]="{'error focused': form.get('email').invalid && form.get('email').touched}">
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    placeholder="Email" 
+                                    [autofocus]="true"
+                                    formControlName="email"
+                                >
+                            </div>
+                            <label *ngIf="form.get('email').invalid && form.get('email').touched" class="error">Введите коректный email</label>
+                        </div>
+
+                        <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RESET MY PASSWORD</button>
+
+                        <div class="row m-t-20 m-b--5 align-center">
+                            <a routerLink="../login" routerLinkActive="active">Sign In!</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>

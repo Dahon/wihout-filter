@@ -1,0 +1,57 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <div class="form-line" [ngClass]="{'error focused': form.get('fullname').invalid && form.get('fullname').touched}" [appFocused]>
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Имя и фамилия"
+                formControlName="fullname"
+            >
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-line" [ngClass]="{'error focused': form.get('company').invalid && form.get('company').touched}" [appFocused]>
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Название вашей компании"
+                formControlName="company"
+            >
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-line" [ngClass]="{'error focused': form.get('tel').invalid && form.get('tel').touched}" [appFocused]>
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Телефон для связи с Вами"
+                formControlName="tel"
+            >
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-line" 
+            (click)="onClick()"
+            [ngClass]="{'focused':wasClicked, 'error focused': form.get('email').invalid && form.get('email').touched && wasClicked}"
+        >
+            <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Электронная почта"
+                formControlName="email"
+            >
+        </div>
+    </div>
+    <div class="form-group field-contactform-verifycode has-error">
+        <div class="row">
+            <div class="col-lg-12">
+                <re-captcha
+                  (resolved)="resolved($event)"
+                  siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"
+                ></re-captcha>
+            </div>
+        </div>
+        <!-- <p class="help-block help-block-error">Неправильный проверочный код.</p> -->
+    </div>
+    <button type="button" class="btn btn-primary waves-effect">Связаться с нами</button>
+</form>

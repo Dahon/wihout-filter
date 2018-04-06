@@ -1,0 +1,336 @@
+<app-header></app-header>
+<div class="wrap">
+    <div class="container">
+    	<div class="row">
+			<div class="card">
+				<div class="header">
+					<ol class="breadcrumb breadcrumb-col-blue">
+	                    <li><a routerLink="/"><i class="material-icons">home</i> Главная</a></li>
+	                    <li><a routerLink="../air">Поиск перелётов</a></li>
+	                    <!-- <li class="active">Резултьтаты поиска</li> -->
+	                </ol>
+				</div>
+				<div class="body">
+					<div class="row">
+						<form id="air-search-form" [formGroup]="reservation" (ngSubmit)="onSubmit()">
+							<div class="searchInput col-xs-12">
+								<div class="form-group">
+								    <div class="form-line" [ngClass]="displayFieldCss('selectedDeparture')" >
+								    	<input 	class="form-control"
+								    			type="search" 
+								    			placeholder="Пункт вылета" 
+								    			[(ngModel)]="selectedDeparture"
+								    	    	(keyup)="searchTerm$.next($event.target.value); loadingFuncF($event)" 
+								    	    	formControlName="selectedDeparture">
+								        <div *ngIf="loadingDeparture" class="preloader pl-size-xs">
+	                                        <div class="spinner-layer pl-light-blue">
+	                                            <div class="circle-clipper left">
+	                                                <div class="circle"></div>
+	                                            </div>
+	                                            <div class="circle-clipper right">
+	                                                <div class="circle"></div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+								    </div>
+								    <field-error-display 
+								      [displayError]="isFieldValid('selectedDeparture')" 
+								      errorMsg="Необходимо заполнить «Откуда».">
+								    </field-error-display>
+								    <ul class="list-group" *ngIf="results && show">
+								      <li class="list-group-item" *ngFor="let result of results | slice:0:9" (click)="choiceSearch(result, 'departure')">
+								        <div>
+											<div class="pull-right">{{result.initials}}</div>
+								      		{{ result.name }}
+								        </div>
+								      </li>
+								    </ul>
+								</div>
+							</div>
+							<div class="searchInput col-xs-12">
+								<div class="form-group">
+								    <div class="form-line" [ngClass]="displayFieldCss('selectedArrivals')">
+	                                    <input 	class="form-control"
+	                                    		type="search" 
+	                                    		placeholder="Пункт прибытия" 
+								    			[(ngModel)]="selectedArrivals"
+	                                        	(keyup)="searchTermSec$.next($event.target.value); loadingFuncS($event)"
+	                                        	formControlName="selectedArrivals">
+								        <div *ngIf="loadingArrivals" class="preloader pl-size-xs">
+	                                        <div class="spinner-layer pl-light-blue">
+	                                            <div class="circle-clipper left">
+	                                                <div class="circle"></div>
+	                                            </div>
+	                                            <div class="circle-clipper right">
+	                                                <div class="circle"></div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+								    </div>
+								    <field-error-display 
+								      [displayError]="isFieldValid('selectedArrivals')" 
+								      errorMsg="Необходимо заполнить «Куда».">
+								    </field-error-display>
+	                                <ul class="list-group" *ngIf="resultsSec && showS">
+	                                  <li class="list-group-item" *ngFor="let result of resultsSec | slice:0:9" (click)="choiceSearch(result, 'arrive')">
+	                                    <div>
+	                            			<div class="pull-right">{{result.initials}}</div>
+	                                  		{{ result.name }}
+	                                    </div>
+	                                  </li>
+	                                </ul>
+								</div>
+							</div>
+							<div class="dates col-xs-12">
+							    <div class="form-group">
+							        <div class="form-line" [ngClass]="displayFieldCss('dateDeparture')">
+										<input 	type="text" 
+												class="form-control" 
+												[(ngModel)]="dateDeparture" 
+												placeholder="Вылет" 
+												daterangepicker [options]="options" 
+												(selected)="selectedDate($event, daterange)" 
+												formControlName="dateDeparture"/>
+							        </div>
+							        <field-error-display 
+							          [displayError]="isFieldValid('dateDeparture')" 
+							          errorMsg="Необходимо заполнить Вылет.">
+							        </field-error-display>
+							    </div>
+							</div>
+							<div class="dates col-xs-2">
+							    <div class="form-group">
+							        <div class="form-line">
+	                                    <input 	type="text" 
+	                                    		class="form-control" 
+	                                    		[(ngModel)]="dateBack" 
+	                                    		placeholder="Обратно"
+	                                    		daterangepicker [options]="options" 
+	                                    		(selected)="selectedDate($event, daterange)" 
+	                                    		formControlName="dateBack"/>
+							        </div>
+							    </div>
+							</div>
+							<app-count-people [peopleCountGroup]="reservation.controls.peopleCountGroup"></app-count-people>
+							<div class="col-md-1 col-xs-12">
+								<div class="form-group">
+									<button class="btn bg-blue waves-effect search-button" type="submit">Найти</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div *ngIf="searchResult">
+						<div class="row">
+							<div class="col-sm-6">
+								<h1>Результаты поиска</h1>
+							</div>
+							<div class="col-sm-6">
+						        <h4 id="results-count" class="pull-right" style="margin-top: 35px;">Найдено {{searchResult.length}} вариантов</h4>
+						    </div>
+						</div>
+						<div class="row">
+							<app-filter-form [searchResultFilter]="searchResultFilter"></app-filter-form>
+							<!-- <div class="col-md-3 air-filter">
+							    <form id="air-filter">
+							        <div class="card">
+							            <div class="header bg-blue">
+							                <h2>
+							                    Пересадки
+							                </h2>
+							            </div>
+							            <div class="body">
+							                <div class="row">
+							                	<div class="col-md-12" *ngFor="let transplantation of transplantations; let i = index;">
+							                	    <input 	type="checkbox" 
+							                	    		[(ngModel)]="transplantation.selected" 
+							                	    		name="{{transplantation.name}}"
+							                	    		id="checkbox_{{i}}" 
+							                	    		class="filled-in chk-col-blue">
+							                	    <label for="checkbox_{{i}}">{{transplantation.name}} пересадка</label>
+							                	</div>
+							                </div>
+							            </div>
+							        </div>
+							        <div class="card">
+							            <div class="header bg-blue">
+							                <h2>
+							                    Время в пути
+							                </h2>
+							            </div>
+							            <div class="body">
+							                <div class="row">
+							                    <div class="col-md-12">
+							                        <nouislider [connect]="true" [min]="0" [max]="15" [step]="1"
+							                        [(ngModel)]="someRange2" name="someRange2"></nouislider>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							        <div class="card">
+							            <div class="header bg-blue">
+							                <h2>
+							                    Авиакомпании
+							                </h2>
+							            </div>
+							            <div class="body">
+							                <div class="row">
+							                	<div class="col-md-12" *ngFor="let filterItem of filterItems; let i = index;">
+							                	    <input 	type="checkbox" 
+							                	    		[(ngModel)]="filterItem.selected" name="{{filterItem.name}}"
+							                	    		id="checkbox_{{i}}" 
+							                	    		class="filled-in chk-col-blue">
+							                	    <label for="checkbox_{{i}}">{{filterItem.name}} пересадка</label>
+							                	</div>
+							                    <div class="col-md-12">
+							                        <input type="checkbox" id="checkbox_4" class="filled-in chk-col-blue" checked="">
+							                        <label for="checkbox_4">Air Astana</label>
+							                    </div>
+							                    <div class="col-md-12">
+							                        <input type="checkbox" id="checkbox_5" class="filled-in chk-col-blue">
+							                        <label for="checkbox_5">Bek Air</label>
+							                    </div>
+							                    <div class="col-md-12">
+							                        <input type="checkbox" id="checkbox_6" class="filled-in chk-col-blue">
+							                        <label for="checkbox_6">Jsc Aircompany Scat</label>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							        <div class="card">
+							            <div class="header bg-blue">
+							                <h2>
+							                    Аэропорты вылета
+							                </h2>
+							            </div>
+							            <div class="body">
+							                <div class="row">
+							                    <div class="col-md-12">
+							                        <input type="checkbox" id="checkbox_7" class="filled-in chk-col-blue" checked="">
+							                        <label for="checkbox_7">Алматы</label>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							        <div class="card">
+							            <div class="header bg-blue">
+							                <h2>
+							                    Аэропорты прибытия
+							                </h2>
+							            </div>
+							            <div class="body">
+							                <div class="row">
+							                    <div class="col-md-12">
+							                        <input type="checkbox" id="checkbox_8" class="filled-in chk-col-blue" checked="">
+							                        <label for="checkbox_8">Астана</label>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							        <div class="card">
+							            <div class="header bg-blue">
+							                <h2>
+							                    Стоимость
+							                </h2>
+							            </div>
+							            <div class="body">
+							                <div class="row">
+							                    <div class="col-md-12">
+							                        <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" 
+							                        [(ngModel)]="someRange" name="someRange"></nouislider>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							    </form>
+							</div> -->
+							<div class="col-md-9 search-results">
+								<div class="card" *ngFor="let result of searchResultTicket">
+				                    <div class="header bg-blue">
+				                        <h2>
+				                            {{result.company}}
+				                        </h2>
+				                    </div>
+				                    <div class="body">
+				                    	<form id="w0">
+	        		                    	<div class="row">
+	        		                    		<div class="col-md-9">
+	        										<div class="left-block ticket">
+	        											<div class="row">
+	        												<div class="col-md-3">
+	        													<div class="ticket-time">{{result.departureTime}}</div>
+	        													<div class="ticket-date">{{result.departureDate}}</div> 
+	        													<div class="ticket-city">{{result.departurePoint}}</div> 
+	        												</div>
+	        												<div class="col-md-6">
+	        													<div class="route">
+	        														<div class="route-total-duration align-center">Всего: {{result.totalTime}} мин</div>
+	        														<div class="route-segments">
+	        															<div class="segment-route__path-stop --plane --origin">
+	        															    <div class="segment-route__path-iata" title="ALA">{{result.departureInitials}}</div>
+	        															    <div class="segment-route__iata-dot"></div>
+	        															    <span></span>
+	        															</div>
+	        															<div class="segment-route__path-stop --plane --destination">
+	        															    <div class="segment-route__path-iata" title="TSE">{{result.arrivalInitials}}</div>
+	        															    <div class="segment-route__iata-dot"></div>
+	        															    <span></span>
+	        															</div>
+	        														</div>
+	        														<div class="route-line bg-blue"></div>
+	        													</div>
+	        												</div>
+	        												<div class="col-md-3 align-right">
+	        													<div class="ticket-time">{{result.arrivalTime}}</div>
+	        													<div class="ticket-date">{{result.arrivalDate}}</div> 
+	        													<div class="ticket-city">{{result.arrivalPoint}}</div> 
+	        												</div>
+	        											</div>
+	        										</div>
+	        										<div class="left-block ticket">
+	        											<div class="row">
+	        												<div class="col-md-3">
+	        													<div class="ticket-time">{{result.departureTime}}</div>
+	        													<div class="ticket-date">{{result.departureDate}}</div> 
+	        													<div class="ticket-city">{{result.departurePoint}}</div> 
+	        												</div>
+	        												<div class="col-md-6">
+	        													<div class="route">
+	        														<div class="route-total-duration align-center">Всего: {{result.totalTime}}</div>
+	        														<div class="route-segments">
+	        															<div class="segment-route__path-stop --plane --origin">
+	        															    <div class="segment-route__path-iata" title="ALA">{{result.departureInitials}}</div>
+	        															    <div class="segment-route__iata-dot"></div>
+	        															    <span></span>
+	        															</div>
+	        															<div class="segment-route__path-stop --plane --destination">
+	        															    <div class="segment-route__path-iata" title="TSE">{{result.arrivalInitials}}</div>
+	        															    <div class="segment-route__iata-dot"></div>
+	        															    <span></span>
+	        															</div>
+	        														</div>
+	        														<div class="route-line bg-blue"></div>
+	        													</div>
+	        												</div>
+	        												<div class="col-md-3 align-right">
+	        													<div class="ticket-time">{{result.arrivalTime}}</div>
+	        													<div class="ticket-date">{{result.arrivalDate}}</div> 
+	        													<div class="ticket-city">{{result.arrivalPoint}}</div> 
+	        												</div>
+	        											</div>
+	        										</div>
+	        		                    		</div>
+	        		                    		<div class="col-md-3 align-center">
+	        		                    			<button type="button" class="btn bg-orange waves-effect" type="submit">Купить за:<span class="price">{{result.price}} ₸</span></button>
+	        		                    		</div>
+	        		                    	</div>
+				                    	</form>
+				                    </div>
+				                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,159 @@
+{
+	"city": [
+	  {
+	    "id": 1,
+	    "name": "Almaty",
+	    "initials": "ALM"
+	  },
+	  {
+	    "id": 2,
+	    "name": "Astana",
+	    "initials": "AST"
+	  },
+	  {
+	    "id": 3,
+	    "name": "Dubai",
+	    "initials": "DUB"
+	  },
+	  {
+	    "id": 4,
+	    "name": "Tawkent",
+	    "initials": "TAW"
+	  },
+	  {
+	    "id": 5,
+	    "name": "Tokya",
+	    "initials": "TOK"
+	  }
+	],
+	"ResultAir": [
+		{
+			"ticket": [
+				{
+					"id": 1,
+					"company": "Air Astana",
+					"departurePoint": "Almaty",
+			    	"departureInitials": "ALM",
+			    	"arrivalInitials": "AST",
+					"arrivalPoint": "Astana",
+					"departureTime": "10:45",
+					"arrivalTime": "11:45",
+					"departureDate": "05/05/2018",
+					"arrivalDate": "06/05/2018",
+					"price": "16700",
+					"type": "бизнес",
+					"totalTime": "230",
+					"transplantation": 0
+				},
+				{
+					"id": 2,
+					"company": "Air Astana",
+					"departurePoint": "Almaty",
+					"arrivalPoint": "Astana",
+					"departureInitials": "ALM",
+					"arrivalInitials": "AST",
+					"departureTime": "09:45",
+					"arrivalTime": "10:45",
+					"departureDate": "05/05/2018",
+					"arrivalDate": "06/05/2018",
+					"price": "16700",
+					"type": "эконом",
+					"totalTime": "160",
+					"transplantation": 2
+				},
+				{
+					"id": 2,
+					"company": "Air Astana",
+					"departurePoint": "Almaty",
+					"arrivalPoint": "Astana",
+					"departureInitials": "ALM",
+					"arrivalInitials": "AST",
+					"departureTime": "09:45",
+					"arrivalTime": "10:45",
+					"departureDate": "05/05/2018",
+					"arrivalDate": "06/05/2018",
+					"price": "16700",
+					"type": "эконом",
+					"totalTime": "160",
+					"transplantation": 2
+				},
+				{
+					"id": 3,
+					"company": "Bek Air",
+					"departurePoint": "Astana",
+					"arrivalPoint": "Almaty",
+					"departureInitials": "AST",
+					"arrivalInitials": "ALM",
+					"departureTime": "05:45",
+					"arrivalTime": "08:45",
+					"departureDate": "05/05/2018",
+					"arrivalDate": "06/05/2018",
+					"price": "35700",
+					"type": "эконом",
+					"totalTime": "180",
+					"transplantation": 0
+				},
+				{
+					"id": 4,
+					"company": "Bek Air",
+					"departurePoint": "Almaty",
+					"arrivalPoint": "Dubai",
+					"departureInitials": "DUB",
+					"arrivalInitials": "ALM",
+					"departureTime": "18:45",
+					"arrivalTime": "20:45",
+					"departureDate": "05/05/2018",
+					"arrivalDate": "06/05/2018",
+					"price": "95000",
+					"type": "эконом",
+					"totalTime": "360",
+					"transplantation": 1
+				},
+				{
+					"id": 5,
+					"company": "Jsc Aircompany Scat",
+					"departurePoint": "Dubai",
+					"arrivalPoint": "Astana",
+					"departureInitials": "DUB",
+					"arrivalInitials": "AST",
+					"departureTime": "22:45",
+					"arrivalTime": "12:45",
+					"departureDate": "05/05/2018",
+					"arrivalDate": "06/05/2018",
+					"price": "19500",
+					"type": "бизнес",
+					"totalTime": "480",
+					"transplantation": 2
+				},
+				{
+					"id": 6,
+					"company": "Air Astana",
+					"departurePoint": "Dubai",
+					"arrivalPoint": "Astana",
+					"departureInitials": "DUB",
+					"arrivalInitials": "AST",
+					"departureTime": "06:45",
+					"arrivalTime": "08:45",
+					"departureDate": "05/05/2018",
+					"arrivalDate": "06/05/2018",
+					"price": "19500",
+					"type": "эконом",
+					"totalTime": "700",
+					"transplantation": 0
+				}
+			]
+		},
+		{
+			"filter": [
+				{
+					"transplantation": [0, 1, 2],
+					"travelTime": 270,
+					"departureAirports": ["Алматы", "SomeText", "SomeText2", "SomeText3"],
+					"arrivalAirports": ["Астана", "SomeText", "SomeText2", "SomeText3"],
+					"companies": ["Air Astana", "Air Trust", "Bek Air", "Berkut Air", "Kazaviaspas"],
+					"price": [{"name": "price", "maxPrice": 73000, "minPrice": 13000}]
+				}
+			]
+		}
+	]
+}

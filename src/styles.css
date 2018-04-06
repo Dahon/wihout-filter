@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/nouislider/distribute/nouislider.min.css";
+body{
+	height: 100%;
+}
+.daterangepicker td.in-range {
+    background-color: #cee3f5!important;
+}
+html:not([dir=rtl]) .noUi-horizontal .noUi-handle{
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	outline-style: none;
+	top: -5px;
+}
+.noUi-horizontal {
+    height: 13px;
+}
+.noUi-connect{
+    background: #2196f3;
+}

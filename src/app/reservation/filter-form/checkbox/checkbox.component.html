@@ -1,0 +1,8 @@
+<div class="col-md-12" *ngFor="let checkBox of checkBoxes; let i = index;">
+    <input  type="checkbox" 
+            [(ngModel)]="checkBox.selected" 
+            name="{{checkBox.name}}"
+            id="checkbox_{{i}}" 
+            class="filled-in chk-col-blue">
+    <label for="checkbox_{{i}}">{{checkBox.name}}</label>
+</div>

@@ -1,0 +1,38 @@
+.wrap > .container {
+    padding: 70px 15px 20px;
+}
+body p, body ul > li {
+    font-size: 16px;
+}
+h1 {
+    color: #116985;
+}
+.card .inner-header{
+    padding: 15px;
+}
+.card .inner-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: normal;
+    color: #111;
+}
+.header{
+	display: flex; 
+	flex: wrap;
+	justify-content: space-between;
+}
+.document-header .inner-header{
+	padding: 15px 0 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.header h2 .material-icons, .header h2 .glyphicon{
+	vertical-align: bottom;
+	margin-right: 5px;
+}
+.bootstrap-select.btn-group .dropdown-toggle .filter-option{
+	font-size: 14px;
+	line-height: 1.42857143;
+    color: #555;
+}

@@ -1,0 +1,31 @@
+.switch label .lever {
+    margin: 0 8px;
+}
+.switch label {
+    font-size: 12px;
+}
+.input-group-addon.dropdown .material-icons{
+	background-color: #1f91f3;
+	color: #fff;
+}
+.btn.dropdown{
+	position: absolute;
+	right: 0;
+	width: 34px;
+	height: 34px;
+	text-align: center;
+	z-index: 3;
+	padding: 0;
+}
+.dropdown-content{
+	border: 1px solid #ddd;
+	z-index: 10;
+	position: absolute;
+	top: 35px;
+	height: 325px;
+	width: 186px;
+	left: 2px;
+	right: 0px;
+	padding: 18px;
+	background-color: #fff;
+}

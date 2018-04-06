@@ -1,0 +1,77 @@
+<div class="bg-class">
+    <div class="login-page ls-closed">
+        <div class="login-box">
+            <div class="logo">
+                <a href="javascript:void(0);"><img src="../assets/image/ETS_logo.png" /></a>
+                <small>Easy Travel Solution</small>
+            </div>
+            <div class="card">
+                <div class="body">
+                    <div
+                      class="alert bg-{{message.type}}"
+                      *ngIf="message.text"
+                    >
+                      {{message.text}}
+                    </div>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="msg">Для входа введите ваш email и пароль</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">email</i>
+                            </span>
+                            <div class="form-line" (focus)="focusFunction()" [ngClass]="{'error focused': form.get('email').invalid && form.get('email').touched}" >
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="E-mail"
+                                    formControlName="email"
+                                    [autofocus]="true"
+                                >
+                            </div>
+                            <label *ngIf="form.get('email').invalid && form.get('email').touched" class="error">Введите коректный email</label>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">lock</i>
+                            </span>
+                            <div class="form-line" [ngClass]="{'error focused': form.get('password').invalid && form.get('password').touched}">
+                                <input 
+                                    type="password" 
+                                    class="form-control" 
+                                    placeholder="Пароль"
+                                    formControlName="password"
+                                >
+                            </div>
+                            <label *ngIf="form.get('password').invalid && form.get('password').touched" class="error">
+                                <p *ngIf="form.get('password').errors['required']">Пароль не должен быть пустым</p>
+                                <p *ngIf="form.get('password').errors['lengthError']">Пароль не должен быть меньше {{charsCount+1}} символов</p>
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-8 p-t-5">
+                                <input 
+                                    type="checkbox" 
+                                    id="rememberme" 
+                                    class="filled-in chk-col-pink"
+                                    formControlName="remember"
+                                >
+                                <label for="rememberme">Запомнить меня</label>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="btn btn-block bg-pink waves-effect" type="submit">Войти</button>
+                            </div>
+                        </div>
+                        <div class="row m-t-15 m-b--20">
+                            <div class="col-xs-6">
+                                <a routerLink="../signup">Регистрация</a>
+                            </div>
+                            <div class="col-xs-6 align-right">
+                                <a routerLink="../reset-password">Забыли пароль?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>

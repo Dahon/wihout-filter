@@ -1,0 +1,88 @@
+<div class="bg-class">
+    <div class="login-page ls-closed">
+        <div class="login-box">
+            <div class="logo">
+                <a href="javascript:void(0);"><img src="../assets/image/ETS_logo.png" /></a>
+                <small>Easy Travel Solution</small>
+            </div>
+            <div class="card">
+                <div class="body">
+                    <div
+                      class="alert bg-{{message.type}}"
+                      *ngIf="message.text"
+                    >
+                      {{message.text}}
+                    </div>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit($event)">
+                        <div class="msg">Register a new membership</div>
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="material-icons">email</i>
+                            </span>
+                            <div class="form-line" [ngClass]="{'error focused': form.get('email').invalid && form.get('email').touched}">
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    placeholder="Email Address" 
+                                    formControlName="email"
+                                >
+                            </div>
+                            <label *ngIf="form.get('email').invalid && form.get('email').touched" class="error">Введите коректный email</label>
+<!--                             <label *ngIf="form.get('email')['errors']['forbiddenEmail']" class="error">Email уже занят</label> -->
+                        </div>
+                        <div formGroupName="password">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line" [ngClass]="{'error focused': form.get('password.firstpass').invalid && form.get('password.firstpass').touched}">
+                                    <input 
+                                        type="password" 
+                                        class="form-control" 
+                                        placeholder="Password" 
+                                        formControlName="firstpass"
+                                    >
+                                </div>
+                                <label *ngIf="form.get('password.firstpass').invalid && form.get('password.firstpass').touched" class="error">
+                                    <p *ngIf="form.get('password.firstpass').errors['required']">Пароль не должен быть пустым</p>
+                                    <p *ngIf="form.get('password.firstpass').errors['lengthError']">Пароль не должен быть меньше {{charsCount+1}} символов</p>
+                                </label>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="material-icons">lock</i>
+                                </span>
+                                <div class="form-line" [ngClass]="{'error focused':form.get('password.secondpass').touched && form.get('password').invalid}">
+                                    <input 
+                                        type="password" 
+                                        class="form-control" 
+                                        placeholder="Confirm Password" 
+                                        formControlName="secondpass"
+                                    >
+                                </div>
+                                <label *ngIf="form.get('password.secondpass').touched && form.get('password').invalid" class="error">
+                                    <p>Пароли не совпадают</p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input 
+                                type="checkbox" 
+                                id="terms" 
+                                class="filled-in chk-col-pink"
+                                formControlName="agree"
+                            >
+                            <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
+                        </div>
+
+                        <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit" [disabled]="form.invalid" >SIGN UP</button>
+
+                        <div class="m-t-25 m-b--5 align-center">
+                            <a routerLink="../login">You already have a membership?</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>

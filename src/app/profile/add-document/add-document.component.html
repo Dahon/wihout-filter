@@ -1,0 +1,94 @@
+<div [formGroup]="documentsForm">
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="input-group">
+				<label>Гражданство</label>
+			    <div class="form-line">
+			    	<select 
+			    		class="form-control show-tick selectpicker"
+			    		formControlName="docNationality">
+			    		<option *ngFor="let item of selected['4'].nationality" value="{{item.value}}">{{item.name}}</option>
+			    	</select>
+			    </div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="input-group">
+				<label>Вид документа</label>
+			    <div class="form-line">
+			    	<select 
+			    		class="form-control show-tick selectpicker"
+			    		formControlName="docType">
+			    		<option *ngFor="let item of selected['3'].docType" value="{{item.value}}">{{item.name}}</option>
+			    	</select>
+			    </div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="input-group">
+				<label>Серия и номер документа</label>
+			    <div class="form-line">
+			        <input type="text" 
+			        	class="form-control" 
+			        	placeholder="Серия и номер документа"
+			        	formControlName="docNumber">
+			    </div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+		    <b>Дата выдачи</b>
+		    <div class="input-group">
+		        <span class="input-group-addon">
+		            <i class="material-icons">date_range</i>
+		        </span>
+		        <div class="form-line">
+		            <input type="text" 
+		            	class="form-control datetime" 
+		            	mask="00/00/0000" 
+		            	formControlName="docIssueDate"
+		            	placeholder="Ex: 30/07/2016"
+		            	>
+		        </div>
+		    </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-3">
+		    <b>Годен до</b>
+		    <div class="input-group">
+		        <span class="input-group-addon">
+		            <i class="material-icons">date_range</i>
+		        </span>
+		        <div class="form-line">
+		            <input type="text" 
+		            	class="form-control datetime"
+		            	mask="00/00/0000" 
+		            	formControlName="docExpireDate"
+		            	placeholder="Ex: 30/07/2016">
+		        </div>
+		    </div>
+		</div>
+		<div class="col-lg-3">
+			<div class="input-group">
+				<label>Имя</label>
+			    <div class="form-line">
+			        <input type="text" 
+			        	class="form-control"
+		            	formControlName="docFirstName"
+			        	placeholder="Имя">
+			    </div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="input-group">
+				<label>Фамилия</label>
+			    <div class="form-line">
+			        <input type="text" 
+			        	class="form-control" 
+			        	placeholder="Фамилия"
+			        	formControlName="docLastName">
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>

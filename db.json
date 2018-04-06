@@ -1,0 +1,37 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "dahon@mail.ru",
+      "password": "12345678",
+      "name": "Администратор"
+    }
+  ],
+  "city": [
+    {
+      "id": 1,
+      "name": "Almaty",
+      "initials": "ALM"
+    },
+    {
+      "id": 2,
+      "name": "Astana",
+      "initials": "AST"
+    },
+    {
+      "id": 3,
+      "name": "Dubai",
+      "initials": "DUB"
+    },
+    {
+      "id": 4,
+      "name": "Tawkent",
+      "initials": "TAW"
+    },
+    {
+      "id": 5,
+      "name": "Tokya",
+      "initials": "TOK"
+    }
+  ]
+}

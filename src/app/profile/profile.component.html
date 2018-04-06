@@ -1,0 +1,337 @@
+<app-header></app-header>
+<div class="wrap">
+    <div class="container">
+    	<div class="row">
+	    	<form [formGroup]="profileForm" (ngSubmit)="onSubmit()"> 
+		    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-15 m-b--20" 
+	    			formGroupName="personalData">
+		    		<div class="card">
+						<ol class="breadcrumb breadcrumb-col-blue">
+		                    <li><a routerLink="/"><i class="material-icons">home</i> Главная</a></li>
+		                    <li><a routerLink="../profile">Пассажиры</a></li>
+		                </ol>
+		    			<div class="header">
+		    				<h2><i class="material-icons">person</i>Личные данные</h2>
+		    			</div>
+		    			<div class="body">
+				    		<div class="row">
+								<div class="col-md-3">
+									<div class="input-group">
+										<label>Пол</label>
+									    <div class="form-line">
+									    	<select 
+									    		class="form-control show-tick" 
+									    		formControlName="passengerGender">
+									    	    <option value="0">Женский</option>
+									    	    <option value="1">Мужской</option>
+									    	</select>
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-3">
+								    <b>Дата рождения</b>
+								    <div class="input-group">
+								        <span class="input-group-addon">
+								            <i class="material-icons">date_range</i>
+								        </span>
+								        <div class="form-line">
+								            <input type="text" 
+								            	class="form-control datetime"
+								            	mask="00/00/0000" 
+								            	formControlName="birthday"
+								            	placeholder="Ex: 30/07/2016">
+								        </div>
+								    </div>
+								</div>
+								<div class="col-md-3">
+								    <div class="input-group">
+								    	<label>Имя (латиница)</label>
+								        <div class="form-line" [ngClass]="displayFieldCss('personalData.firstNameLatin', 'pattern')">
+								            <input type="text" 
+								            	class="form-control"
+								            	placeholder="FIRST NAME"
+								            	formControlName="firstNameLatin">
+								        </div>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.firstNameLatin')" 
+								          errorMsg="Необходимо заполнить «Имя (латиница)».">
+								        </field-error-display>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.firstNameLatin', 'pattern')" 
+								          errorMsg="Допустимы только символы латиницы">
+								        </field-error-display>
+								    </div>
+								</div>
+								<div class="col-md-3">
+								    <div class="input-group">
+								    	<label>Фамилия (латиница)</label>
+								        <div class="form-line" [ngClass]="displayFieldCss('personalData.lastNameLatin', 'pattern')">
+								            <input type="text" 
+								            	class="form-control 
+								            	date" placeholder="LAST NAME"
+								            	formControlName="lastNameLatin">
+								        </div>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.lastNameLatin')" 
+								          errorMsg="Необходимо заполнить «Фамилия (латиница)».">
+								        </field-error-display>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.lastNameLatin', 'pattern')" 
+								          errorMsg="Допустимы только символы латиницы">
+								        </field-error-display>
+								    </div>
+								</div>
+				    		</div>
+				    		<div class="row">
+				    			<div class="col-md-3">
+				    			    <div class="input-group">
+				    			    	<label>ИИН</label>
+				    			        <div class="form-line" [ngClass]="displayFieldCss('personalData.passengerIin', 'pattern', 'correctError')">
+				    			            <input type="text" 
+				    			            	class="form-control"
+				    			            	maxlength="12" 
+				    			            	placeholder="ИИН"
+				    			            	formControlName="passengerIin">
+				    			        </div>
+				    			        <field-error-display 
+				    			          [displayError]="isFieldValid('personalData.passengerIin', 'correctError')" 
+				    			          errorMsg="Значение «ИИН» не корректено.">
+				    			        </field-error-display>
+				    			        <field-error-display 
+				    			          [displayError]="isFieldValid('personalData.passengerIin', 'pattern')" 
+				    			          errorMsg="Значение «ИИН» должно содержать 12 цифров.">
+				    			        </field-error-display>
+				    			    </div>
+				    			</div>
+								<div class="col-md-3">
+								    <div class="input-group">
+								    	<label>Имя (кириллица)</label>
+								        <div class="form-line" [ngClass]="displayFieldCss('personalData.firstNameCyrl', 'pattern')">
+								            <input type="text" 
+								            	class="form-control" 
+								            	placeholder="Имя"
+								            	formControlName="firstNameCyrl">
+								        </div>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.firstNameCyrl')" 
+								          errorMsg="Необходимо заполнить «Имя (кириллица)».">
+								        </field-error-display>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.firstNameCyrl', 'pattern')" 
+								          errorMsg="Допустимы только символы кириллица">
+								        </field-error-display>
+								    </div>
+								</div>
+								<div class="col-md-3">
+								    <div class="input-group">
+								    	<label>Отчество (кириллица)</label>
+								        <div class="form-line">
+								            <input type="text" 
+								            	class="form-control" 
+								            	placeholder="Отчество"
+								            	formControlName="patronymicCyrl">
+								        </div>
+								    </div>
+								</div>
+								<div class="col-md-3">
+								    <div class="input-group">
+								    	<label>Фамилия (кириллица)</label>
+								        <div class="form-line" [ngClass]="displayFieldCss('personalData.lastNameCyrl', 'pattern')">
+								            <input type="text" 
+								            	class="form-control" 
+								            	placeholder="Фамилия"
+								            	formControlName="lastNameCyrl">
+								        </div>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.lastNameCyrl')" 
+								          errorMsg="Необходимо заполнить Фамилия (кириллица)».">
+								        </field-error-display>
+								        <field-error-display 
+								          [displayError]="isFieldValid('personalData.lastNameCyrl', 'pattern')" 
+								          errorMsg="Допустимы только символы кириллица">
+								        </field-error-display>
+								    </div>
+								</div>
+				    		</div>
+				    		<div class="row">
+				    			<div class="col-lg-4">
+				    				<div class="input-group">
+				    					<label>Компания</label>
+				    				    <div class="form-line">
+				    				        <input type="text" 
+				    				        	class="form-control" 
+				    				        	formControlName="companyName">
+				    				    </div>
+				    				</div>
+				    			</div>
+				    			<div class="col-lg-4">
+				    				<div class="input-group">
+				    					<label>Дирекция</label>
+				    				    <div class="form-line">
+				    				    	<select 
+				    				    		class="form-control show-tick" 
+				    				    		formControlName="passengerDepartmentId">
+				    				    		<option *ngFor="let item of selected['2'].departmentId" value="{{item.value}}">{{item.name}}</option>
+				    				    	</select>
+				    				    </div>
+				    				</div>
+				    			</div>
+				    		</div>
+				    		<div class="row">
+				    			<div class="inner-header">
+				    				<h2>Контактные данные</h2>
+				    			</div>
+				    			<div class="col-lg-4">
+				    			    <b>Mobile Phone Number</b>
+				    			    <div class="input-group">
+				    			        <span class="input-group-addon">
+				    			            <i class="material-icons">phone_iphone</i>
+				    			        </span>
+				    			        <div class="form-line" [ngClass]="displayFieldCss('personalData.passengerPhone')">
+				    			            <input type="text" 
+				    			            	class="form-control mobile-phone-number"
+				    			            	mask="(000) 000-00-00" 
+				    			            	formControlName="passengerPhone"
+				    			            	placeholder="Ex: (000) 000-00-00">
+				    			        </div>
+				    			        <field-error-display 
+				    			          [displayError]="isFieldValid('personalData.passengerPhone')" 
+				    			          errorMsg="Необходимо заполнить «Телефон».">
+				    			        </field-error-display>
+				    			    </div>
+				    			</div>
+				    			<div class="col-lg-4">
+				    			    <b>Email Address</b>
+				    			    <div class="input-group">
+				    			        <span class="input-group-addon">
+				    			            <i class="material-icons">email</i>
+				    			        </span>
+				    			        <div class="form-line" [ngClass]="displayFieldCss('personalData.passengerEmail')">
+				    			            <input type="text" 
+				    			            	class="form-control email" 
+				    			            	placeholder="Ex: example@example.com"
+				    			            	formControlName="passengerEmail">
+				    			        </div>
+				    			        <field-error-display 
+				    			          [displayError]="isFieldValid('personalData.passengerEmail')" 
+				    			          errorMsg="Необходимо заполнить «Email».">
+				    			        </field-error-display>
+				    			    </div>
+				    			</div>
+				    		</div>
+				    		<div class="row">
+				    			<div class="inner-header">
+				    				<h2>Экстренный контакт</h2>
+				    			</div>
+				    			<div class="col-lg-4">
+				    			    <b>Mobile Phone Number</b>
+				    			    <div class="input-group">
+				    			        <span class="input-group-addon">
+				    			            <i class="material-icons">phone_iphone</i>
+				    			        </span>
+				    			        <div class="form-line">
+				    			            <input type="text" 
+				    			            	class="form-control mobile-phone-number"
+				    			            	mask="(000) 000-00-00"
+				    			            	placeholder="Ex: (000) 000-00-00"
+				    			            	formControlName="passengerEmergencyPhone">
+				    			        </div>
+				    			    </div>
+				    			</div>
+				    			<div class="col-md-3">
+				    			    <div class="input-group">
+				    			    	<label>Контактное лицо</label>
+				    			        <div class="form-line">
+				    			            <input type="text" 
+				    			            	class="form-control" 
+				    			            	placeholder="Контактное лицо"
+				    			            	formControlName="passengerEmergencyContact">
+				    			        </div>
+				    			    </div>
+				    			</div>
+				    		</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-15 m-b--20"
+		    		formArrayName="documents">
+		    		<div class="card">
+		    			<div class="header">
+							<h2><i class="glyphicon glyphicon-book"></i>Паспортные данные</h2>
+							<button type="button" class="btn btn-success waves-effect" 
+								(click)="addDocument()">
+                                <i class="material-icons">add_circle_outline</i>
+                                <span>Добавить документ</span>
+                            </button>
+		    			</div>
+						<div class="body">
+							<div *ngFor="let document of profileForm.controls.documents.controls;let i=index" class="document-header">
+			               		<div class="inner-header">
+					               	<h2>Документ {{i + 1}}</h2>
+					               	<button *ngIf="profileForm.controls.documents.controls.length >1" 
+					               		(click)="removeDocument(i)" 
+					               		class="btn btn-danger waves-effect">Удалить
+					               	</button>
+			               		</div>
+
+								<div class="passport-form" [formGroupName]="i">
+									<app-add-document 
+										[group]="profileForm.controls.documents.controls[i]" 
+										[selected]="selected">
+									</app-add-document>
+								</div>
+
+							</div>
+						</div>
+
+		    		</div>
+		    	</div>
+		    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-15 m-b--20"
+		    		formGroupName="specialRequirements">
+		    		<div class="card">
+		    			<div class="header">
+							<h2><i class="material-icons">mode_comment</i>Особые требования</h2>
+		    			</div>
+						<div class="body">
+							<div class="row">
+								<div class="inner-header">
+									<h2>Экстренный контакт</h2>
+								</div>
+								<div class="col-lg-4">
+									<div class="input-group">
+										<label>Дирекция</label>
+									    <div class="form-line">
+									    	<select 
+									    		class="form-control show-tick"
+									    		formControlName="passengerPreferenceAirSeat">
+									    		<option *ngFor="let item of selected['1'].passengerSeat" value="{{item.value}}">{{item.name}}</option>
+									    	</select>
+									    </div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="input-group">
+										<label>Дирекция</label>
+									    <div class="form-line">
+									    	<select 
+									    		class="form-control show-tick"
+									    		formControlName="passengerPreferenceAirMeal">
+									    		<option *ngFor="let item of selected['0'].passengerMeal" value="{{item.value}}">{{item.name}}</option>
+									    	</select>
+									    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+		    		</div>
+		    	</div>
+		    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		    		<div class="form-group">
+		    			<button class="btn btn-primary waves-effect" type="submit">Сохранить</button>
+		    		</div>
+		    	</div>
+	    	</form>
+    	</div>
+	</div>
+</div>
+

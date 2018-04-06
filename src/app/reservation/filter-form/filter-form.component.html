@@ -1,0 +1,76 @@
+<div class="col-md-3 air-filter">
+    <form id="air-filter">
+        <div class="card">
+            <div class="header bg-blue">
+                <h2>
+                    Пересадки
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <app-checkbox [searchResultFilter]="searchResultFilter.transplantation"></app-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header bg-blue">
+                <h2>
+                    Время в пути
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <!-- <app-nouislider [searchResultFilter]="searchResultFilter.price"></app-nouislider> -->
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header bg-blue">
+                <h2>
+                    Авиакомпании
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <app-checkbox [searchResultFilter]="searchResultFilter.companies"></app-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header bg-blue">
+                <h2>
+                    Аэропорты вылета
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <app-checkbox [searchResultFilter]="searchResultFilter.departureAirports"></app-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header bg-blue">
+                <h2>
+                    Аэропорты прибытия
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <app-checkbox [searchResultFilter]="searchResultFilter.arrivalAirports"></app-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="header bg-blue">
+                <h2>
+                    Стоимость
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row">
+                    <!-- <app-nouislider></app-nouislider> -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
